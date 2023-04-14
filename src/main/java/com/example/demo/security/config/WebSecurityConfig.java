@@ -1,7 +1,6 @@
 package com.example.demo.security.config;
 
 import com.example.demo.appuser.AppUserService;
-import com.example.demo.security.PasswordEncoder;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,13 +31,10 @@ public class WebSecurityConfig {
                     .permitAll()
                 .anyRequest()
                 .authenticated().and()
-                .formLogin();
+                .formLogin()
+                .and()
+                .authenticationProvider(daoAuthenticationProvider());
         return http.build();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
